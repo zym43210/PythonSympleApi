@@ -21,5 +21,5 @@ from django.contrib import admin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/blog/', include('books.api.v1.urls', 'book_api')),
+    path('api/v1/book/', include('books.api.v1.urls', 'book_api')),
 ]
