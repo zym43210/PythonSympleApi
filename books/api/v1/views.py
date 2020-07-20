@@ -1,4 +1,3 @@
-
 from rest_framework import generics
 from rest_framework import mixins
 
@@ -25,4 +24,5 @@ class BooksListView(generics.GenericAPIView,
             return self.list(request)
 
     def post(self, request):
+
         return self.create(request)

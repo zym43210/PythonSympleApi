@@ -2,6 +2,7 @@ from abc import ABC
 
 from rest_framework import serializers
 from books.models import Book
+from authors.models import Author
 
 
 class BookSerializer(serializers.Serializer):
@@ -11,5 +12,7 @@ class BookSerializer(serializers.Serializer):
     description = serializers.CharField(required=True, max_length=500)
 
     def create(self, validated_data):
+        name = validated_data['author_name']
+        validated_data['author_name'] = Author.objects.get(name=name)
 
         return Book.objects.create(**validated_data)
