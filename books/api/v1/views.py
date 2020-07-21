@@ -23,6 +23,6 @@ class BooksListView(generics.GenericAPIView,
         else:
             return self.list(request)
 
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
 
-        return self.create(request)
+        return self.create(request, *args, **kwargs)
