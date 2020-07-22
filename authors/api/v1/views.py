@@ -1,3 +1,4 @@
+from django.db.models import Avg
 from rest_framework import generics
 from rest_framework import mixins
 
@@ -9,7 +10,7 @@ class AuthorsListView(generics.GenericAPIView,
                       mixins.ListModelMixin,
                       mixins.CreateModelMixin):
     serializer_class = AuthorSerializer
-    queryset = Author.objects.all()
+    queryset = Author.objects.annotate(avg_price=Avg('books__price'))
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
@@ -23,7 +24,8 @@ class AuthorsDetailView(generics.GenericAPIView,
                         mixins.DestroyModelMixin,
                         mixins.UpdateModelMixin):
     serializer_class = AuthorSerializer
-    queryset = Author.objects.all()
+    queryset = Author.objects.annotate(avg_price=Avg('books__price'))
+
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
@@ -33,5 +35,3 @@ class AuthorsDetailView(generics.GenericAPIView,
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
-
-
